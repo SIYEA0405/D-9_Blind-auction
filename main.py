@@ -1,28 +1,38 @@
 from replit import clear
-#HINT: You can call clear() to clear the output in the console.
 from art import logo
 print(logo)
 
-dictionary = {}
-bidding_finished = False
+question = True
+information = []
 
-def find_highest_bidder(bidding_record):
-	highest_bid = 0
-	for bidder in bidding_record:
-		bid_amount = bidding_record[bidder]
-		if bid_amount > highest_bid:
-			highest_bid = bid_amount
-			winner = bidder
-	print(f"The winner is {winner} with a bid of ${highest_bid}")
-
-while not bidding_finished:
+while question:
 	name = input("What's your name?: ")
-	price = int(input("What is your bid?: $"))
-	dictionary[name] = price
-	next_person = input("Are there any other bidders? Type 'yes' or 'no': ").lower()
-	if next_person == "no":
-		bidding_finished = True
-		find_highest_bidder(dictionary)
-	elif next_person == "yes":
+	price = input("How much?: $")
+	next_person = input("next person? choose 'yes' or 'no': ").lower()
+	def dictionary(name_value, price_value, next_person_value):
+		hdd_dictionary = {}
+		hdd_dictionary["name"] = name_value
+		hdd_dictionary["price"] = int(price_value)
+		information.append(hdd_dictionary)
+	if next_person == "yes":
+		dictionary(name_value=name, price_value=price, next_person_value=next_person)
+		question = True
 		clear()
+	elif next_person == "no":
+		dictionary(name_value=name, price_value=price, next_person_value=next_person)
+		question = False
+		clear()
+
+zero = 0
+winner = ""
+for X in information:
+	if X["price"] > zero:
+		zero = X["price"]
+		winner = X
+winner_name = winner["name"]
+winner_price = winner["price"]
+
+
+print(logo)
+print(f"The winner is {winner_name} with a bid of {winner_price}$.")
 
